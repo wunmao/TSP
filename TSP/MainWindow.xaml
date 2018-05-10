@@ -133,11 +133,13 @@
             <TextBlock
                 x:Name="TB"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Foreground="Green" />
             <TextBlock
                 x:Name="TB2"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Foreground="Red" />
         </StackPanel>
     </Grid>
 </Window>
