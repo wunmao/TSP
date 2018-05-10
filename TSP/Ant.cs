@@ -37,7 +37,7 @@ namespace TSP
                 AllowedNodes.Add(i);
             }
 
-            UpdatePath(r.Next(TourSize));
+            UpdatePath(0);
         }
 
         public bool InTour(int start, int end)
@@ -59,23 +59,19 @@ namespace TSP
         {
             var totalDist = 0.0;
 
-            for (var i = 0; i < Path.Count - 1; ++i)
+            for (var i = 0; i < Path.Count - 1; i++)
             {
                 var dist = matrix.Distance(Path[i], Path[i + 1]);
                 totalDist += dist;
             }
 
-            totalDist += matrix.Distance(Path[0], Path[Path.Count - 1]);
+            //totalDist += matrix.Distance(Path[0], Path[Path.Count - 1]);
 
             return totalDist;
         }
 
         public void Reset()
         {
-            var r = new Random();
-
-            var first = r.Next(TourSize);
-
             Path.Clear();
 
             for (var i = 0; i < TourSize; i++)
@@ -83,7 +79,7 @@ namespace TSP
                 AllowedNodes.Add(i);
             }
 
-            UpdatePath(first);
+            UpdatePath(0);
         }
 
         public int GetNode(int index)

@@ -43,7 +43,7 @@ namespace TSP
                                                        bestAntFound.UpdatePath(nextNode);
                                                    }
 
-                                                   for (var i = 0; i < 1000; i++)
+                                                   for (var i = 0; i < 300; i++)
                                                    {
                                                        var pathDistance = new double[Ants.Count];
 
@@ -76,7 +76,7 @@ namespace TSP
                                                        Reset();
                                                    }
 
-                                                   for (var j = 0; j < 1000; j++)
+                                                   for (var j = 0; j < 150; j++)
                                                    {
                                                        for (var i = 1; i < tourSize - 1; i++)
                                                        {

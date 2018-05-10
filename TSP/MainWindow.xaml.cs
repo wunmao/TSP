@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -12,10 +10,8 @@ namespace TSP
     /// <summary>
     ///     MainWindow.xaml 的互動邏輯
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private const int count = 64;
         private const double Alpha = 1.0;
         private const double Beta = 50.0;
@@ -32,11 +28,6 @@ namespace TSP
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -91,6 +82,7 @@ namespace TSP
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             TB.Text = "";
+            TB2.Text = "";
             bt1.IsEnabled = false;
             bt2.IsEnabled = false;
 
@@ -117,8 +109,46 @@ namespace TSP
             PS.Points = ps;
 
             TB.Text = result.Item2.ToString("0.000");
+
+            var result2 = OrderByDistance(pts, new Point(0, 0));
+
+            //var pp = result2.Item1;
+            //PF2.StartPoint = pp.First();
+            //pp.RemoveAt(0);
+
+            //var ps2 = new PointCollection();
+            //foreach (var el in pp)
+            //{
+            //    ps2.Add(el);
+            //}
+
+            //ps2.Freeze();
+            //PS2.Points = ps2;
+
+            TB2.Text = result2.Item2.ToString("0.000");
+
             bt1.IsEnabled = true;
             bt2.IsEnabled = true;
+        }
+
+        public (List<Point>, double) OrderByDistance(IEnumerable<Point> points, Point start)
+        {
+            Point[] current = { start };
+            var remaining = points.ToList();
+            var path = new List<Point>();
+
+            var total_length = 0.0;
+
+            while (remaining.Count != 0)
+            {
+                var (e1, e2) = remaining.Select(e => (e1: e, e2: (current[0] - e).Length)).OrderBy(ee => ee.e2).First();
+                total_length += e2;
+                path.Add(e1);
+                remaining.Remove(e1);
+                current[0] = e1;
+            }
+
+            return (path, total_length);
         }
     }
 }
