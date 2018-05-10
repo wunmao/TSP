@@ -65,7 +65,7 @@ namespace TSP
                 totalDist += dist;
             }
 
-            //totalDist += matrix.Distance(Path[0], Path[Path.Count - 1]);
+            totalDist += matrix.Distance(Path[0], Path[Path.Count - 1]);
 
             return totalDist;
         }

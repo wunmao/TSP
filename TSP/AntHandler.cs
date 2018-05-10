@@ -33,6 +33,8 @@ namespace TSP
         {
             return await Task.Factory.StartNew(() =>
                                                {
+                                                   var n = 0;
+                                                   var index = 0;
                                                    var minDistance = double.MaxValue;
                                                    var bestAntFound = new Ant(tourSize, new Random());
 
@@ -43,7 +45,7 @@ namespace TSP
                                                        bestAntFound.UpdatePath(nextNode);
                                                    }
 
-                                                   for (var i = 0; i < 300; i++)
+                                                   while (true)
                                                    {
                                                        var pathDistance = new double[Ants.Count];
 
@@ -67,6 +69,7 @@ namespace TSP
                                                            {
                                                                minDistance = pathDistance[j];
                                                                bestAntFound = new Ant(Ants[j]);
+                                                               index = n;
                                                            }
                                                        }
 
@@ -74,9 +77,19 @@ namespace TSP
 
                                                        // reset paths
                                                        Reset();
+
+                                                       if (n - index > 10)
+                                                       {
+                                                           break;
+                                                       }
+
+                                                       n++;
                                                    }
 
-                                                   for (var j = 0; j < 150; j++)
+                                                   n = 0;
+                                                   index = 0;
+
+                                                   while (true)
                                                    {
                                                        for (var i = 1; i < tourSize - 1; i++)
                                                        {
@@ -90,9 +103,17 @@ namespace TSP
                                                                {
                                                                    minDistance = newDistance;
                                                                    bestAntFound = newAnt;
+                                                                   index = n;
                                                                }
                                                            }
                                                        }
+
+                                                       if (n - index > 10)
+                                                       {
+                                                           break;
+                                                       }
+
+                                                       n++;
                                                    }
 
                                                    return (bestAntFound, minDistance);

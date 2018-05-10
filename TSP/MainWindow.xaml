@@ -37,16 +37,16 @@
                 Background="White"
                 SizeChanged="CV_SizeChanged">
                 <Path
-                    Stroke="Blue"
+                    Stroke="Lime"
                     StrokeEndLineCap="Round"
                     StrokeStartLineCap="Round"
-                    StrokeThickness="4">
+                    StrokeThickness="8">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
                                 <PathFigure
                                     x:Name="PF"
-                                    IsClosed="False"
+                                    IsClosed="True"
                                     IsFilled="False">
                                     <PolyLineSegment
                                         x:Name="PS"
@@ -56,8 +56,8 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <!--<Path
-                    Stroke="Green"
+                <Path
+                    Stroke="Red"
                     StrokeEndLineCap="Round"
                     StrokeStartLineCap="Round"
                     StrokeThickness="2">
@@ -66,7 +66,7 @@
                             <PathGeometry.Figures>
                                 <PathFigure
                                     x:Name="PF2"
-                                    IsClosed="False"
+                                    IsClosed="True"
                                     IsFilled="False">
                                     <PolyLineSegment
                                         x:Name="PS2"
@@ -75,7 +75,7 @@
                             </PathGeometry.Figures>
                         </PathGeometry>
                     </Path.Data>
-                </Path>-->
+                </Path>
             </Canvas>
         </Border>
         <ListBox
@@ -110,7 +110,7 @@
                                         Margin="-5,-5,5,5"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top"
-                                        Fill="Red">
+                                        Fill="Blue">
                                         <Ellipse.RenderTransform>
                                             <TransformGroup>
                                                 <TranslateTransform X="{Binding X, Mode=OneWay}" Y="{Binding Y, Mode=OneWay}" />
