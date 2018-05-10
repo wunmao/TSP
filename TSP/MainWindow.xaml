@@ -2,11 +2,102 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TSP"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        Loaded="Window_Loaded"
+        mc:Ignorable="d">
+    <Grid TextElement.FontSize="18">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button x:Name="bt1"
+                Click="Button_Click"
+                Content="Reset" />
+        <Button x:Name="bt2"
+                Grid.Column="1"
+                Click="Button_Click_1"
+                Content="Start" />
+        <Border Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="20">
+            <Canvas x:Name="CV"
+                    Background="White"
+                    SizeChanged="CV_SizeChanged">
+                <Path Stroke="Blue"
+                      StrokeEndLineCap="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeThickness="2">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure x:Name="PF"
+                                            IsClosed="True"
+                                            IsFilled="False">
+                                    <PolyLineSegment x:Name="PS"
+                                                     IsSmoothJoin="True" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Border>
+        <ListBox x:Name="IC"
+                 Grid.Row="1"
+                 Grid.ColumnSpan="2"
+                 Margin="20"
+                 IsHitTestVisible="False"
+                 ItemTemplate="{x:Null}">
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ItemsPresenter />
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      d:DataContext="{d:DesignInstance Point}">
+                                    <Ellipse Width="10"
+                                             Height="10"
+                                             Margin="-5,-5,5,5"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Top"
+                                             Fill="Red">
+                                        <Ellipse.RenderTransform>
+                                            <TransformGroup>
+                                                <TranslateTransform X="{Binding X, Mode=OneWay}" Y="{Binding Y, Mode=OneWay}" />
+                                            </TransformGroup>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <TextBlock x:Name="TB"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="4"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top" />
     </Grid>
 </Window>
