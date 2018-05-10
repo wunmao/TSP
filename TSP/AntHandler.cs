@@ -45,19 +45,28 @@ namespace TSP
 
                                                    for (var i = 0; i < 1000; i++)
                                                    {
-                                                       foreach (var ant in Ants)
-                                                       {
-                                                           while (!ant.PathFound)
-                                                           {
-                                                               var nextNode = GetNextPathNode(ant, pheromoneMatrix, coordMatrix, alpha, beta, q);
-                                                               ant.UpdatePath(nextNode);
-                                                           }
+                                                       var pathDistance = new double[Ants.Count];
 
-                                                           var pathDistance = ant.Distance(coordMatrix);
-                                                           if (pathDistance < minDistance)
+                                                       Parallel.For(0,
+                                                                    Ants.Count,
+                                                                    j =>
+                                                                    {
+                                                                        // Find the tour taken by the ant                 
+                                                                        while (!Ants[j].PathFound)
+                                                                        {
+                                                                            var nextNode = GetNextPathNode(Ants[j], pheromoneMatrix, coordMatrix, alpha, beta, q);
+                                                                            Ants[j].UpdatePath(nextNode);
+                                                                        }
+
+                                                                        pathDistance[j] = Ants[j].Distance(coordMatrix);
+                                                                    });
+
+                                                       for (var j = 0; j < Ants.Count; j++)
+                                                       {
+                                                           if (pathDistance[j] < minDistance)
                                                            {
-                                                               minDistance = pathDistance;
-                                                               bestAntFound = new Ant(ant);
+                                                               minDistance = pathDistance[j];
+                                                               bestAntFound = new Ant(Ants[j]);
                                                            }
                                                        }
 

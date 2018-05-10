@@ -16,7 +16,7 @@ namespace TSP
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private const int count = 20;
+        private const int count = 64;
         private const double Alpha = 1.0;
         private const double Beta = 50.0;
         private const double Evaporation = 0.1;
