@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace TSP
 {
@@ -24,9 +22,9 @@ namespace TSP
         private AntHandler _antHandler;
         private CoordMatrix _coordMatrix;
         private PheromoneMatrix _pheromoneMatrix;
+        private Tour _Tour;
         private int h = 1000;
         private int w = 1000;
-        private Tour _Tour;
 
         public MainWindow()
         {
@@ -75,7 +73,7 @@ namespace TSP
 
             await Task.Factory.StartNew(() =>
                                         {
-                                            for (var i = 0; i < count-1; i++)
+                                            for (var i = 0; i < count - 1; i++)
                                             {
                                                 var rn = new Random((int)DateTime.Now.Ticks + i);
                                                 pts.Add(new Point(rn.Next(w), rn.Next(h)));
@@ -108,12 +106,19 @@ namespace TSP
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            if (pts == null || pts.Count == 0)
+            {
+                return;
+            }
+
             TB.Text = "";
             TB2.Text = "";
+            TB3.Text = "";
             bt1.IsEnabled = false;
             bt2.IsEnabled = false;
             PS.Points = null;
             PS2.Points = null;
+            PS3.Points = null;
 
             var result = await _antHandler.Run(_pheromoneMatrix, _coordMatrix, Alpha, Beta, Evaporation, Q);
 
@@ -193,6 +198,24 @@ namespace TSP
             //PS2.Points = ps2;
 
             //TB2.Text = result2.Item2.ToString("0.000");
+
+            var result3 = await new SimulatedAnnealingOptimizer(pts, 0.98, true).Run();
+
+            var ppp = result3.Item1;
+            
+            PF3.StartPoint = ppp.First();
+            ppp.RemoveAt(0);
+
+            var ps3 = new PointCollection();
+            foreach (var el in ppp)
+            {
+                ps3.Add(el);
+            }
+
+            ps3.Freeze();
+            PS3.Points = ps3;
+
+            TB3.Text = result3.Item2.ToString("0.000");
 
             bt1.IsEnabled = true;
             bt2.IsEnabled = true;

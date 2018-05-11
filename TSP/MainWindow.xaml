@@ -10,6 +10,9 @@
     Height="450"
     Loaded="Window_Loaded"
     mc:Ignorable="d">
+    <Window.Resources>
+        <local:BoolVis x:Key="BoolVis" />
+    </Window.Resources>
     <Grid TextElement.FontSize="18">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -31,7 +34,7 @@
         <Border
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="20">
+            Margin="50">
             <Canvas
                 x:Name="CV"
                 Background="White"
@@ -40,13 +43,14 @@
                     Stroke="Lime"
                     StrokeEndLineCap="Round"
                     StrokeStartLineCap="Round"
-                    StrokeThickness="8">
+                    StrokeThickness="10"
+                    Visibility="{Binding IsChecked, Converter={StaticResource BoolVis}, ElementName=CB1, Mode=OneWay}">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
                                 <PathFigure
                                     x:Name="PF"
-                                    IsClosed="True"
+                                    IsClosed="False"
                                     IsFilled="False">
                                     <PolyLineSegment
                                         x:Name="PS"
@@ -60,16 +64,38 @@
                     Stroke="Red"
                     StrokeEndLineCap="Round"
                     StrokeStartLineCap="Round"
-                    StrokeThickness="2">
+                    StrokeThickness="6"
+                    Visibility="{Binding IsChecked, Converter={StaticResource BoolVis}, ElementName=CB2, Mode=OneWay}">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
                                 <PathFigure
                                     x:Name="PF2"
-                                    IsClosed="True"
+                                    IsClosed="False"
                                     IsFilled="False">
                                     <PolyLineSegment
                                         x:Name="PS2"
+                                        IsSmoothJoin="True" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path
+                    Stroke="DeepSkyBlue"
+                    StrokeEndLineCap="Round"
+                    StrokeStartLineCap="Round"
+                    StrokeThickness="2"
+                    Visibility="{Binding IsChecked, Converter={StaticResource BoolVis}, ElementName=CB3, Mode=OneWay}">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure
+                                    x:Name="PF3"
+                                    IsClosed="False"
+                                    IsFilled="False">
+                                    <PolyLineSegment
+                                        x:Name="PS3"
                                         IsSmoothJoin="True" />
                                 </PathFigure>
                             </PathGeometry.Figures>
@@ -82,7 +108,7 @@
             x:Name="IC"
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="20"
+            Margin="50"
             IsHitTestVisible="False"
             ItemTemplate="{x:Null}">
             <ListBox.Template>
@@ -129,17 +155,54 @@
             Grid.Column="1"
             Margin="4"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
             <TextBlock
                 x:Name="TB"
+                Margin="4"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="Green" />
             <TextBlock
                 x:Name="TB2"
+                Margin="4"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="Red" />
+            <TextBlock
+                x:Name="TB3"
+                Margin="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="Blue" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Margin="4"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <CheckBox
+                x:Name="CB1"
+                Margin="4"
+                VerticalContentAlignment="Center"
+                IsChecked="True">
+                算法一
+            </CheckBox>
+            <CheckBox
+                x:Name="CB2"
+                Margin="4"
+                VerticalContentAlignment="Center"
+                IsChecked="True">
+                算法二
+            </CheckBox>
+            <CheckBox
+                x:Name="CB3"
+                Margin="4"
+                VerticalContentAlignment="Center"
+                IsChecked="True">
+                算法三
+            </CheckBox>
         </StackPanel>
     </Grid>
 </Window>
