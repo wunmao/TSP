@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ namespace TSP
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Stopwatch SW = new Stopwatch();
         private const int count = 64;
         private const double Alpha = 1.0;
         private const double Beta = 50.0;
@@ -114,13 +116,23 @@ namespace TSP
             TB.Text = "";
             TB2.Text = "";
             TB3.Text = "";
+            TB_.Text = "";
+            TB2_.Text = "";
+            TB3_.Text = "";
             bt1.IsEnabled = false;
             bt2.IsEnabled = false;
             PS.Points = null;
             PS2.Points = null;
             PS3.Points = null;
 
+            await Task.Delay(300);
+
+            SW.Reset();
+            SW.Start();
+
             var result = await _antHandler.Run(_pheromoneMatrix, _coordMatrix, Alpha, Beta, Evaporation, Q);
+
+            SW.Stop();
 
             var tour_pts = new List<Point>();
 
@@ -142,7 +154,11 @@ namespace TSP
             ps.Freeze();
             PS.Points = ps;
 
-            TB.Text = result.Item2.ToString("0.000");
+            TB.Text = $"{result.Item2:f3}";
+            TB_.Text = $"{SW.ElapsedMilliseconds} ms";
+
+            SW.Reset();
+            SW.Start();
 
             await Task.Factory.StartNew(() =>
                                         {
@@ -165,6 +181,8 @@ namespace TSP
                                             }
                                         });
 
+            SW.Stop();
+
             var result2 = _Tour.GetResult();
 
             var pp2 = result2.Item1;
@@ -180,7 +198,8 @@ namespace TSP
             ps2.Freeze();
             PS2.Points = ps2;
 
-            TB2.Text = result2.Item2.ToString("0.000");
+            TB2.Text = $"{result2.Item2:f3}";
+            TB2_.Text = $"{SW.ElapsedMilliseconds} ms";
 
             //var result2 = OrderByDistance(pts, new Point(0, 0));
 
@@ -199,7 +218,12 @@ namespace TSP
 
             //TB2.Text = result2.Item2.ToString("0.000");
 
+            SW.Reset();
+            SW.Start();
+
             var result3 = await new SimulatedAnnealingOptimizer(pts, 0.98, true).Run();
+
+            SW.Stop();
 
             var ppp = result3.Item1;
             
@@ -215,7 +239,8 @@ namespace TSP
             ps3.Freeze();
             PS3.Points = ps3;
 
-            TB3.Text = result3.Item2.ToString("0.000");
+            TB3.Text = $"{result3.Item2:f3}";
+            TB3_.Text = $"{SW.ElapsedMilliseconds} ms";
 
             bt1.IsEnabled = true;
             bt2.IsEnabled = true;

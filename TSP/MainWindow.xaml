@@ -157,24 +157,48 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Orientation="Horizontal">
-            <TextBlock
-                x:Name="TB"
-                Margin="4"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="Green" />
-            <TextBlock
-                x:Name="TB2"
-                Margin="4"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="Red" />
-            <TextBlock
-                x:Name="TB3"
-                Margin="4"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="Blue" />
+            <StackPanel Orientation="Vertical">
+                <TextBlock
+                    x:Name="TB"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Green" />
+                <TextBlock
+                    x:Name="TB_"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Green" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock
+                    x:Name="TB2"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Red" />
+                <TextBlock
+                    x:Name="TB2_"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Red" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock
+                    x:Name="TB3"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Blue" />
+                <TextBlock
+                    x:Name="TB3_"
+                    Margin="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Blue" />
+            </StackPanel>
         </StackPanel>
         <StackPanel
             Grid.Row="1"
